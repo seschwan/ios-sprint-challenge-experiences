@@ -32,7 +32,7 @@ The requirements for this project are as follows:
 
 2. A map view controller that adds an annotation for each experience created. Simply show the title of the experience on the annotation.
 3. A straightforward UI similar to the screen recording that lets a user create an experience with an image, video, audio, and location. The location can either be the user's current location or you may let them select a location however you choose to implement it (`MKLocalSearch`, pin dropping, etc).
-4. The image must be filtered in some way. It may have been hard to tell on the screen recording (as the image was already in black and white), but it desaturates the image after the user picks an image from their photo library.
+4. The image must be filtered in some way. In the screen recording example, it desaturates the image after the user picks an image from their photo library.
 
 ## Go Further
 
