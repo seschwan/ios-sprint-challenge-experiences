@@ -25,10 +25,10 @@ The requirements for this project are as follows:
 1. A single model object that represents an experience. The requirements for this model object are:
       - An audio recording
       - A video recording
-      - A image
+      - An image
       - The model object must and conform to the `MKAnnotation` protocol. 
 
-**Note:** you are welcome to add any other properties and methods you wish in the model object.
+**Note:** You are welcome to add any other properties and methods you wish in the model object.
 
 2. A map view controller that adds an annotation for each experience created. Simply show the title of the experience on the annotation.
 3. A straightforward UI similar to the screen recording that lets a user create an experience with an image, video, audio, and location. The location can either be the user's current location or you may let them select a location however you choose to implement it (`MKLocalSearch`, pin dropping, etc).
