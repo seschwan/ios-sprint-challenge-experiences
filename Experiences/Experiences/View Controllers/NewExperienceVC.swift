@@ -10,7 +10,7 @@ import UIKit
 import CoreImage
 import Photos
 
-class NewExperienceVC: UIViewController {
+class NewExperienceVC: UIViewController, RecorderDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var titleTextField: UITextField!
@@ -18,13 +18,24 @@ class NewExperienceVC: UIViewController {
     @IBOutlet weak var addImageBtn: UIButton!
     @IBOutlet weak var recordBtn: UIButton!
     
-    var originalImage: UIImage?
+    var originalImage: UIImage? {
+        didSet {
+            updateImage()
+            //imageView.image = self.originalImage
+        }
+    }
     
-
+    // Audio
+    lazy private var recorder = Recorder()
+    
+    private let filter = CIFilter(name: "CIColorControls")!
+    private let context = CIContext(options: nil)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         recordBtn.layer.cornerRadius = 6
-        
+        recorder.delegate = self
         
     }
     
@@ -38,24 +49,60 @@ class NewExperienceVC: UIViewController {
         self.present(imagePicker, animated: true)
     }
     
-
+    
+    private func image(byFiltering image: UIImage) -> UIImage? {
+        // UIImage > CGImage > CIImage
+        guard let cgImage = image.cgImage else { return image }
+        let ciImage = CIImage(cgImage: cgImage)
+        
+        // Set Values on Filter
+        filter.setValue(ciImage, forKey: "inputImage")
+        filter.setValue(-0.5, forKey: "inputSaturation")
+        filter.setValue(0.1, forKey: "inputBrightness")
+        filter.setValue(1, forKey: "inputContrast")
+        
+        // CIImage > CGImage > UIImage
+        guard let outputCIImage = filter.outputImage else { return image }
+        guard let outputCGImage = context.createCGImage(outputCIImage, from: outputCIImage.extent) else { return image }
+        
+        return UIImage(cgImage: outputCGImage)
+    }
+    
+    // Updating the imageView.
+    private func updateImage() {
+        if let filteredImage = originalImage {
+            imageView.image = self.image(byFiltering: filteredImage)
+        } else {
+            imageView.image = nil
+        }
+    }
+    
+    
     // MARK: - Actions
     
     @IBAction func addImageBtnPressed(_ sender: UIButton) {
         self.presentImagePickerController()
-    
+        
     }
     
     @IBAction func recordBtnPressed(_ sender: UIButton) {
-        
+        recorder.toggleRecording()
+    }
+    
+    func recorderDidChangeState(_ recorder: Recorder) {
+        if recorder.isRecording {
+            recordBtn.setTitle("Stop", for: .normal)
+        } else {
+            recordBtn.setTitle("Record", for: .normal)
+        }
     }
 }
 
 extension NewExperienceVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
-            //self.originalImage = image
-            imageView.image = image
+            self.originalImage = image
+            //imageView.image = image
             addImageBtn.isHidden = true
             addImageBtn.isEnabled = false
         }

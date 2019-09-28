@@ -16,6 +16,8 @@
 		EFBC0475233ED37300C65182 /* NewExperienceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBC0474233ED37300C65182 /* NewExperienceVC.swift */; };
 		EFBC0477233EEAAC00C65182 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBC0476233EEAAC00C65182 /* CameraVC.swift */; };
 		EFBC047A233EED2D00C65182 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBC0479233EED2D00C65182 /* CameraPreviewView.swift */; };
+		EFBC047C233F171600C65182 /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBC047B233F171600C65182 /* Experience.swift */; };
+		EFBC047E233F198800C65182 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBC047D233F198800C65182 /* AudioRecorder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		EFBC0474233ED37300C65182 /* NewExperienceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExperienceVC.swift; sourceTree = "<group>"; };
 		EFBC0476233EEAAC00C65182 /* CameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
 		EFBC0479233EED2D00C65182 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		EFBC047B233F171600C65182 /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
+		EFBC047D233F198800C65182 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 		EFBC0472233ED33600C65182 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EFBC047B233F171600C65182 /* Experience.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -120,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				EFBC0479233EED2D00C65182 /* CameraPreviewView.swift */,
+				EFBC047D233F198800C65182 /* AudioRecorder.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -198,8 +204,10 @@
 				EFBC0460233ECCA800C65182 /* MapVC.swift in Sources */,
 				EFBC045C233ECCA800C65182 /* AppDelegate.swift in Sources */,
 				EFBC047A233EED2D00C65182 /* CameraPreviewView.swift in Sources */,
+				EFBC047C233F171600C65182 /* Experience.swift in Sources */,
 				EFBC0477233EEAAC00C65182 /* CameraVC.swift in Sources */,
 				EFBC045E233ECCA800C65182 /* SceneDelegate.swift in Sources */,
+				EFBC047E233F198800C65182 /* AudioRecorder.swift in Sources */,
 				EFBC0475233ED37300C65182 /* NewExperienceVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
