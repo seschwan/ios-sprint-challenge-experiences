@@ -21,19 +21,29 @@ class CameraVC: UIViewController {
     var captureSession: AVCaptureSession!
     var recordOutput: AVCaptureMovieFileOutput!
     
+    let locationHelper = LocationHelper()
+    
+    var experienceController: ExperienceController?
+    
+    var imageData: Data?
+    var audioURL: URL?
+    var postTitle: String?
+    var video: URL?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         recordButtonSetup()
         captureSessionCreation()
+        checkValues()
         
     }
     func recordButtonSetup() {
-           videoRecordBtn.layer.cornerRadius = videoRecordBtn.frame.height / 2
-           videoRecordBtn.layer.cornerRadius = videoRecordBtn.frame.width / 2
-           videoRecordBtn.layer.borderColor = UIColor.red.cgColor
-           videoRecordBtn.layer.borderWidth = 1.0
-       }
+        videoRecordBtn.layer.cornerRadius = videoRecordBtn.frame.height / 2
+        videoRecordBtn.layer.cornerRadius = videoRecordBtn.frame.width / 2
+        videoRecordBtn.layer.borderColor = UIColor.red.cgColor
+        videoRecordBtn.layer.borderWidth = 1.0
+    }
     
     func captureSessionCreation() {
         let captureSession = AVCaptureSession()
@@ -106,6 +116,21 @@ class CameraVC: UIViewController {
     }
     
     
+    
+    func checkValues() {
+        print("Title: \(postTitle) \n\n ImageData: \(imageData) \n\n AudioURL: \(audioURL) \n\n VideoURL: \(video) \n\n Coordinate: \(locationHelper.getCurrentLocation()?.coordinate) \n\n Experiences: \(experienceController?.experiences)" )
+    }
+    
+    func setValues() {
+        guard let coordinate = locationHelper.getCurrentLocation()?.coordinate,
+            let postTitle = postTitle,
+            let videoURL = video,
+            let audioURL = audioURL,
+            let imageData = imageData else { return }
+        
+        experienceController?.createNewExperience(userLocation: coordinate, title: postTitle, image: imageData, audio: audioURL, video: videoURL)
+    }
+    
     // MARK: - Actions
     
     @IBAction func recordBtnPressed(_ sender: UIButton) {
@@ -120,8 +145,13 @@ class CameraVC: UIViewController {
     
     @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {
         
+        setValues()
+        checkValues()
         navigationController?.popToRootViewController(animated: true)
+        //dismiss(animated: true, completion: nil)
     }
+    
+    
     
 }
 extension CameraVC: AVCaptureFileOutputRecordingDelegate {
@@ -134,39 +164,43 @@ extension CameraVC: AVCaptureFileOutputRecordingDelegate {
     
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        defer { self.updateView() }
-        
-        PHPhotoLibrary.requestAuthorization { (status) in
-            if status != .authorized {
-                NSLog("Please give Video Recorder access to your photo library")
-                return
-            }
-            
-            PHPhotoLibrary.shared().performChanges({
-                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputFileURL)
-            }) { (success, error) in
-                if let error = error {
-                    NSLog("Error Saving video to photo library: \(error)")
-                }
-                
-                if success {
-                    DispatchQueue.main.async {
-                        self.presentSuccessAlert()
-                    }
-                }
-            }
+        DispatchQueue.main.async {
+            defer { self.updateView() }
         }
+        video = outputFileURL
+        
+        
+        //        PHPhotoLibrary.requestAuthorization { (status) in
+        //            if status != .authorized {
+        //                NSLog("Please give Video Recorder access to your photo library")
+        //                return
+        //            }
+        //
+        //            PHPhotoLibrary.shared().performChanges({
+        //                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputFileURL)
+        //            }) { (success, error) in
+        //                if let error = error {
+        //                    NSLog("Error Saving video to photo library: \(error)")
+        //                }
+        //
+        //                if success {
+        //                    DispatchQueue.main.async {
+        //                        self.presentSuccessAlert()
+        //                    }
+        //                }
+        //            }
+        //        }
     }
     
-    private func presentSuccessAlert() {
-        let alert = UIAlertController(title: "Video Saved!", message: "Your video was successfully saved to your photo library", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Open Photos", style: .default, handler: { (_) in
-            UIApplication.shared.open(URL(string: "photos-redirect://")!,
-                                      options: [:], completionHandler: nil)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
+    //    private func presentSuccessAlert() {
+    //        let alert = UIAlertController(title: "Video Saved!", message: "Your video was successfully saved to your photo library", preferredStyle: .alert)
+    //        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    //        alert.addAction(UIAlertAction(title: "Open Photos", style: .default, handler: { (_) in
+    //            UIApplication.shared.open(URL(string: "photos-redirect://")!,
+    //                                      options: [:], completionHandler: nil)
+    //        }))
+    //
+    //        self.present(alert, animated: true, completion: nil)
+    //    }
 }
 

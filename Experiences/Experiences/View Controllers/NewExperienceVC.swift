@@ -25,18 +25,23 @@ class NewExperienceVC: UIViewController, RecorderDelegate {
         }
     }
     
+    var experienceController: ExperienceController?
+    
     // Audio
     lazy private var recorder = Recorder()
+    var audioURL: URL?
     
+    // Image
     private let filter = CIFilter(name: "CIColorControls")!
     private let context = CIContext(options: nil)
+    var imageData: Data?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         recordBtn.layer.cornerRadius = 6
         recorder.delegate = self
-        
+        titleTextField.delegate = self
     }
     
     private func presentImagePickerController() {
@@ -65,7 +70,11 @@ class NewExperienceVC: UIViewController, RecorderDelegate {
         guard let outputCIImage = filter.outputImage else { return image }
         guard let outputCGImage = context.createCGImage(outputCIImage, from: outputCIImage.extent) else { return image }
         
-        return UIImage(cgImage: outputCGImage)
+        let filteredImage = UIImage(cgImage: outputCGImage)
+        
+        imageData = filteredImage.jpegData(compressionQuality: 1)
+        
+        return filteredImage
     }
     
     // Updating the imageView.
@@ -80,13 +89,17 @@ class NewExperienceVC: UIViewController, RecorderDelegate {
     
     // MARK: - Actions
     
+    // Image
     @IBAction func addImageBtnPressed(_ sender: UIButton) {
         self.presentImagePickerController()
         
     }
     
+    // Audio
     @IBAction func recordBtnPressed(_ sender: UIButton) {
         recorder.toggleRecording()
+        audioURL = recorder.currentFile
+        
     }
     
     func recorderDidChangeState(_ recorder: Recorder) {
@@ -96,8 +109,22 @@ class NewExperienceVC: UIViewController, RecorderDelegate {
             recordBtn.setTitle("Record", for: .normal)
         }
     }
+    
+    // Prepare for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ToCameraVC" {
+            guard let destinationVC = segue.destination as? CameraVC else { return }
+            
+            destinationVC.experienceController = experienceController
+            destinationVC.audioURL = audioURL
+            destinationVC.imageData = imageData
+            destinationVC.postTitle = titleTextField.text
+            
+        }
+    }
 }
 
+// MARK: - PickerControlDelegate
 extension NewExperienceVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
@@ -111,5 +138,13 @@ extension NewExperienceVC: UIImagePickerControllerDelegate, UINavigationControll
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - TextFieldDelegate
+extension NewExperienceVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        titleTextField.resignFirstResponder()
+        return true
     }
 }

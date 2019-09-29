@@ -45,7 +45,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus.rectangle.on.rectangle" catalog="system" id="TgB-dU-pf8">
                             <connections>
                                 <action selector="addBtnPressed:" destination="BYZ-38-t0r" id="wd8-XM-41N"/>
-                                <segue destination="Gmn-Gu-7cd" kind="show" id="bxA-m7-QYe"/>
+                                <segue destination="Gmn-Gu-7cd" kind="show" identifier="ToNewExperience" id="bxA-m7-QYe"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -69,7 +69,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Post Title.." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="go4-AJ-rho">
                                 <rect key="frame" x="20" y="108" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U7a-Xs-edt">
                                 <rect key="frame" x="20" y="150" width="374" height="374"/>
@@ -123,7 +123,7 @@
                     <navigationItem key="navigationItem" title="New Experience" id="5od-DZ-0rq">
                         <barButtonItem key="rightBarButtonItem" title="Next" image="video.badge.plus" catalog="system" id="ybX-Km-vFg">
                             <connections>
-                                <segue destination="bde-DS-qnz" kind="show" id="huW-do-arc"/>
+                                <segue destination="bde-DS-qnz" kind="show" identifier="ToCameraVC" id="huW-do-arc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

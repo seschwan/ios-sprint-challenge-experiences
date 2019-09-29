@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF7F3B4E2340409800287AF8 /* ExperienceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7F3B4D2340409800287AF8 /* ExperienceController.swift */; };
+		EF7F3B5023404E1A00287AF8 /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7F3B4F23404E1A00287AF8 /* LocationHelper.swift */; };
 		EFBC045C233ECCA800C65182 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBC045B233ECCA800C65182 /* AppDelegate.swift */; };
 		EFBC045E233ECCA800C65182 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBC045D233ECCA800C65182 /* SceneDelegate.swift */; };
 		EFBC0460233ECCA800C65182 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBC045F233ECCA800C65182 /* MapVC.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EF7F3B4D2340409800287AF8 /* ExperienceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceController.swift; sourceTree = "<group>"; };
+		EF7F3B4F23404E1A00287AF8 /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 		EFBC0458233ECCA700C65182 /* Experiences.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Experiences.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFBC045B233ECCA800C65182 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFBC045D233ECCA800C65182 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 		EFBC0473233ED33D00C65182 /* Model Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EF7F3B4D2340409800287AF8 /* ExperienceController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 			children = (
 				EFBC0479233EED2D00C65182 /* CameraPreviewView.swift */,
 				EFBC047D233F198800C65182 /* AudioRecorder.swift */,
+				EF7F3B4F23404E1A00287AF8 /* LocationHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -204,6 +210,8 @@
 				EFBC0460233ECCA800C65182 /* MapVC.swift in Sources */,
 				EFBC045C233ECCA800C65182 /* AppDelegate.swift in Sources */,
 				EFBC047A233EED2D00C65182 /* CameraPreviewView.swift in Sources */,
+				EF7F3B4E2340409800287AF8 /* ExperienceController.swift in Sources */,
+				EF7F3B5023404E1A00287AF8 /* LocationHelper.swift in Sources */,
 				EFBC047C233F171600C65182 /* Experience.swift in Sources */,
 				EFBC0477233EEAAC00C65182 /* CameraVC.swift in Sources */,
 				EFBC045E233ECCA800C65182 /* SceneDelegate.swift in Sources */,
