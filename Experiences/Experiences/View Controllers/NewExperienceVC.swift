@@ -99,6 +99,7 @@ class NewExperienceVC: UIViewController, RecorderDelegate {
     @IBAction func recordBtnPressed(_ sender: UIButton) {
         recorder.toggleRecording()
         audioURL = recorder.currentFile
+        //recorderDidChangeState(recorder)
         
     }
     

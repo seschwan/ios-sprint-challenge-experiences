@@ -64,6 +64,7 @@ extension MapVC: MKMapViewDelegate {
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "ExperienceAnnotationView", for: experience) as! MKMarkerAnnotationView
         
         annotationView.glyphTintColor = .red
+        annotationView.glyphImage = UIImage(named: "skull")
         annotationView.canShowCallout = true
         
         return annotationView
